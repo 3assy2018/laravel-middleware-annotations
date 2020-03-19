@@ -3,6 +3,7 @@
 namespace M3assy\LaravelAnnotations;
 
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Illuminate\Support\ServiceProvider;
 use M3assy\LaravelAnnotations\Console\MakeMiddlewareAnnotationCommand;
 use M3assy\LaravelAnnotations\Console\ScanNewAclCommand;
@@ -34,6 +35,10 @@ class LaravelAnnotationServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if(class_exists(AnnotationRegistry::class)){
+            AnnotationRegistry::registerLoader('class_exists');
+        }
+
         $this->mergeConfigFrom(__DIR__ . '/../config/annotations.php', 'laravel_annotations');
         // Register the service the package provides.
         $this->app->singleton('laravel_annotation', function ($app) {
