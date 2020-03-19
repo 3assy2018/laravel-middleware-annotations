@@ -10,14 +10,16 @@ class Permission extends MiddlewareAnnotation
 {
     public function validateGivenValue()
     {
+        $model = config('laratrust.models.permission');
         $values = explode('|', $this->value);
-        return \App\Models\Permission::whereIn('name', $values)->count() == count($values);
+        return $model::whereIn('name', $values)->count() == count($values);
     }
 
     public function getDifference()
     {
+        $model = config('laratrust.models.permission');
         $values = explode("|", $this->value);
-        $dbValues = \App\Models\Permission::whereIn('name', $values)->get()->pluck("name")->toArray();
+        $dbValues = $model::whereIn('name', $values)->get()->pluck("name")->toArray();
         return array_diff($values, $dbValues);
     }
 }
