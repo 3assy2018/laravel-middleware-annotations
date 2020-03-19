@@ -45,6 +45,6 @@ class MakeMiddlewareAnnotationCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return config("annotations.namespace");
+        return config("annotations.namespace")[1];
     }
 }
