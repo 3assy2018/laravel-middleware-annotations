@@ -2,10 +2,10 @@
 
 namespace M3assy\LaravelAnnotations\Console;
 
-use App\Foundation\Annotations\Permission;
-use App\Foundation\Annotations\Role;
 use Exception;
 use Illuminate\Console\Command;
+use M3assy\LaravelAnnotations\Annotations\Permission;
+use M3assy\LaravelAnnotations\Annotations\Role;
 use M3assy\LaravelAnnotations\Foundation\AnnotationScanner;
 use M3assy\LaravelAnnotations\Foundation\Pipes\AclScanClass;
 use M3assy\LaravelAnnotations\Foundation\Pipes\AclScanMethod;
