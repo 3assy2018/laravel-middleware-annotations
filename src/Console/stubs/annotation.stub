@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyNamespace;
+
+use M3assy\LaravelAnnotations\Foundation\Types\MiddlewareAnnotation;
+
+/**
+ * @Annotation
+ */
+class DummyClass extends MiddlewareAnnotation
+{
+
+}
