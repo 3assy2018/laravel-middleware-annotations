@@ -24,7 +24,7 @@ class AclScanClass
         foreach ($classes as $class) {
             $annotations = array_merge($annotations, Annotation::getClassAnnotations($class));
         }
-        $annotationScanner->results = array_unique(array_merge_recursive($annotationScanner->results
+        $annotationScanner->results = array_merge_recursive($annotationScanner->results
             , ...array_map(function ($annotation) {
                 return [$annotation->getName() => $annotation->getDifference()];
             }
@@ -32,7 +32,7 @@ class AclScanClass
                     return array_reduce($types, function ($carry, $current) use ($annotation) {
                         return $carry || ($annotation instanceof $current);
                     }, false);
-            }))));
+            })));
         return $next($annotationScanner);
     }
 }
