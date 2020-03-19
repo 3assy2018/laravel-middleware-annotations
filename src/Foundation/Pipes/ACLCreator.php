@@ -16,6 +16,7 @@ class ACLCreator
 {
     public function handle(AnnotationScanner $annotationScanner, Closure $next)
     {
+        $annotationScanner->results = array_unique($annotationScanner->results);
         foreach ($annotationScanner->results as $aclModelKey => $newValues){
             $model = config("laratrust.models.$aclModelKey");
             $instances = array_map(function ($newValue) use ($model) {
