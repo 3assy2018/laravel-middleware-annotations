@@ -217,5 +217,5 @@ MIT. Please see the [license file](license.md) for more information.
 [link-downloads]: https://packagist.org/packages/m3assy/laravelannotation
 [link-travis]: https://travis-ci.org/m3assy/laravelannotation
 [link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/m3assy
+[link-author]: https://github.com/3assy2018
 [link-contributors]: ../../contributors
