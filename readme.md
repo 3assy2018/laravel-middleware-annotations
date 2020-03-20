@@ -5,7 +5,7 @@
 [![Build Status][ico-travis]][link-travis]
 
 
-##Documantation
+## Documantation
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -171,7 +171,7 @@ class UserController extends Controller
 
 Feel free to use `Role` and `Permission` annotations on the class level and methods level like previous instructions.
 
-####Scanning New Roles And Permissions
+#### Scanning New Roles And Permissions
 If you have used any role or permission in its annotation and it does not exist in the acl tables and you need to add them, no need to use any ui or tinker or any type code.
 Just use our artisan `scan:acl` Command and it will identify automatically what is new in your roles and permissions and detects its type and create new instance for it.
 To start scan fire your command like following:
@@ -185,7 +185,7 @@ and voila!, We finished :)
 If you refreshed any route to a controller contains non-existing role or permission, you will find that it is created and applied.
 
 <a name="future_features"></a>
-##Future Features
+## Future Features
 - Implement middleware options.
 - Implement Laratrust Teams Feature Annotation.
 - Adding more built-in laravel middlewares.
