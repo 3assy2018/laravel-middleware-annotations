@@ -28,10 +28,11 @@ class LaravelAnnotation extends SimpleAnnotationReader
      */
     public function read(Controller $controller)
     {
-        app(Pipeline::class)
-            ->send($controller)
-            ->through($this->pipes)
-            ->then(function ($cn){ return $cn; });
+        if(request()->route())
+            app(Pipeline::class)
+                ->send($controller)
+                ->through($this->pipes)
+                ->then(function ($cn){ return $cn; });
     }
 
 
