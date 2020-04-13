@@ -4,9 +4,12 @@ namespace M3assy\LaravelAnnotations;
 
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Illuminate\Routing\Contracts\ControllerDispatcher;
 use Illuminate\Support\ServiceProvider;
 use M3assy\LaravelAnnotations\Console\MakeMiddlewareAnnotationCommand;
 use M3assy\LaravelAnnotations\Console\ScanNewAclCommand;
+use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
+use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Foundation\ControllerDispatcherWithAnnotationReader;
 
 class LaravelAnnotationServiceProvider extends ServiceProvider
 {
@@ -44,6 +47,13 @@ class LaravelAnnotationServiceProvider extends ServiceProvider
         $this->app->singleton('laravel_annotation', function ($app) {
             return new LaravelAnnotation();
         });
+
+        $this->app->bind(ControllerDispatcher::class, ControllerDispatcherWithAnnotationReader::class);
+
+        $this->app->singleton(ControllerResolver::class, function ($app){
+            return new ControllerResolver();
+        });
+
     }
 
     /**

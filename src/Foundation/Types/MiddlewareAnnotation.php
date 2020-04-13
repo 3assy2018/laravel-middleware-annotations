@@ -2,15 +2,18 @@
 
 namespace M3assy\LaravelAnnotations\Foundation\Types;
 
+use Closure;
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
 use ReflectionClass;
 use M3assy\LaravelAnnotations\Foundation\Contracts\AnnotationType;
 
 class MiddlewareAnnotation implements AnnotationType
 {
 
-    protected $middlewareName, $value, $response;
+    protected $middlewareName, $value, $response, $options = [];
     public const PARAM_NOTATION = ":";
     protected $invalidInputMessage = "Invalid Parameters";
     protected $case = "camel";
@@ -20,6 +23,11 @@ class MiddlewareAnnotation implements AnnotationType
         $this->middlewareName = $this->getName();
         $this->value = $param['value'] ?? null;
         $this->response = $this->formResponse();
+        $options = Arr::only($param, ['except', 'only']);
+        foreach ($options as $key => $value){
+            $options[$key] = explode(',', $value);
+        }
+        $this->options = $options;
     }
 
     /**
@@ -29,7 +37,9 @@ class MiddlewareAnnotation implements AnnotationType
     public function formResponse()
     {
         return $this->validateGivenValue()
-            ? ($this->value ? $this->middlewareName.static::PARAM_NOTATION.$this->value : $this->middlewareName)
+            ? ($this->value
+                ? $this->middlewareName.static::PARAM_NOTATION.$this->getValue()
+                : $this->middlewareName)
             : null;
     }
 
@@ -69,6 +79,15 @@ class MiddlewareAnnotation implements AnnotationType
 
     public function getValue()
     {
-        return $this->value;
+        $originalValue = $this->value;
+        $valueBindingClosure = Closure::bind(function () use ($originalValue){
+            return eval("return \"$originalValue\";");
+        }, app(ControllerResolver::class)->getController());
+        return $valueBindingClosure();
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

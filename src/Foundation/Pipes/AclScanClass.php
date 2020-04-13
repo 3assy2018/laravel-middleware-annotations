@@ -12,8 +12,10 @@ namespace M3assy\LaravelAnnotations\Foundation\Pipes;
 use Closure;
 use M3assy\LaravelAnnotations\Facades\Annotation;
 use M3assy\LaravelAnnotations\Foundation\AnnotationScanner;
+use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
+use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Foundation\Pipes\AbstractAclScanner;
 
-class AclScanClass
+class AclScanClass extends AbstractAclScanner
 {
     public function handle(AnnotationScanner $annotationScanner, Closure $next, ...$types)
     {
@@ -22,17 +24,20 @@ class AclScanClass
             return $scan->getClass();
         }, $annotationScanner->scans->toArray()));
         foreach ($classes as $class) {
-            $annotations = array_merge($annotations, Annotation::getClassAnnotations($class));
+            app(ControllerResolver::class)->setController($class->name);
+
+            $annotations = array_merge_recursive($annotations, [$class->name => Annotation::getClassAnnotations($class)]);
         }
-        $annotationScanner->results = array_merge_recursive($annotationScanner->results
-            , ...array_map(function ($annotation) {
-                return [$annotation->getName() => $annotation->getDifference()];
-            }
-                , array_filter($annotations, function ($annotation) use ($types) {
-                    return array_reduce($types, function ($carry, $current) use ($annotation) {
-                        return $carry || ($annotation instanceof $current);
-                    }, false);
-            })));
+        foreach ($annotations as $binding => $annotationGroup) {
+            app(ControllerResolver::class)->setController($binding);
+
+            $annotationScanner->results =
+                array_merge_recursive($annotationScanner->results
+                    , ...array_map(function ($annotation) {
+                        return [$annotation->getName() => $annotation->getDifference()];
+                    }
+                        , $this->filterNonSupportedAnnotations($annotationGroup, $types)));
+        }
         return $next($annotationScanner);
     }
 }

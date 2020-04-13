@@ -27,16 +27,23 @@ class ClassMiddlewareResolver
     public function handle(Controller $controller, Closure $next)
     {
         $classAnnotations = Annotation::getClassAnnotations($this->reflector);
+        $classAnnotations = $this->getMiddlewares($classAnnotations);
         if (!empty($classAnnotations)) {
-            $controller
-                ->middleware(
-                    array_filter(
-                        array_map(function ($classAnnotation) {
-                            return $classAnnotation->getResponse();
-                        }, $classAnnotations)
-                    )
-                );
+            foreach ($classAnnotations as $classAnnotation) {
+                $controller->middleware($classAnnotation['middleware'], $classAnnotation['options']);
+            }
         }
         return $next($controller);
+    }
+
+    public function getMiddlewares($annotations)
+    {
+        return array_filter(
+            array_map(function ($classAnnotation) {
+                return $classAnnotation->getResponse()
+                    ? ['middleware' => $classAnnotation->getResponse(), 'options' => $classAnnotation->getOptions()]
+                    : null;
+            }, $annotations)
+        );
     }
 }
