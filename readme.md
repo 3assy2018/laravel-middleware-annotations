@@ -39,22 +39,7 @@ If you are using lower versions add those lines to config/app.php
 <a name="usage"></a>
 ## Usage
 
-First of all you have to use trait in your base controller or the controller that you need to activate this feature in it
-
-```php
-<?php
-    use M3assy\LaravelAnnotations\Foundation\Traits\HasAnnotationMiddlewares;
-    class Controller extends BaseController{
-        use YourTraits, HasAnnotationMiddlewares;
-    }
-?>
-```
-
-and be careful in the next times if you need to use you controller constructor again you have call `parent::__construct();` and then write your logic.
-
-Middleware annotations follows an easy syntax to use with middlewares and getting rid of the fat controller constructor.
-
-All what you need is to name your middleware in `camel case` and generate the annotation file using our artisan command and add it to your controllers' doc blocks.
+Now, You don't need to add any trait, the package register a custom controller dispatcher which register middlewares under the hood
 
 Example:
 
@@ -139,6 +124,36 @@ class Guest extends MiddlewareAnnotation
 ```
 
 Notice: If the given value is invalid the engine will neglect this annotation.
+
+You can also access internal controller properties and methods dynamically like so:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Modules;
+
+use App\Http\Controllers\Controller;
+
+/**
+ * Example For Middleware Class Annotation
+ * @Auth
+ */
+class UserController extends Controller
+{
+    public $value;
+    /**
+     * Example For Middleware Method Annotation
+     * @Auth
+     * @ExampleAnnotationWithParameter("{$this->value}") 
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return response();
+    }
+}
+```
+
 
 <a name="laratrust_integration"></a>
 ## Laratrust Integration
