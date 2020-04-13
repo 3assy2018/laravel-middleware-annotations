@@ -6,6 +6,7 @@ use Doctrine\Common\Annotations\SimpleAnnotationReader;
 use Illuminate\Routing\Controller;
 use Illuminate\Pipeline\Pipeline;
 use M3assy\LaravelAnnotations\Foundation\Pipes\{ClassMiddlewareResolver, MethodMiddlewareResolver};
+use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
 
 class LaravelAnnotation extends SimpleAnnotationReader
 {
@@ -28,6 +29,8 @@ class LaravelAnnotation extends SimpleAnnotationReader
      */
     public function read(Controller $controller)
     {
+        app(ControllerResolver::class)->setController(get_class(request()->route()->controller));
+
         if(request()->route())
             app(Pipeline::class)
                 ->send($controller)
