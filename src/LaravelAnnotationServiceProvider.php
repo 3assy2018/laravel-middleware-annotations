@@ -47,9 +47,9 @@ class LaravelAnnotationServiceProvider extends ServiceProvider
         $this->app->singleton('laravel_annotation', function ($app) {
             return new LaravelAnnotation();
         });
-
-        $this->app->bind(ControllerDispatcher::class, ControllerDispatcherWithAnnotationReader::class);
-
+        if(!$this->app->runningInConsole()){
+            $this->app->bind(ControllerDispatcher::class, ControllerDispatcherWithAnnotationReader::class);
+        }
         $this->app->singleton(ControllerResolver::class, function ($app){
             return new ControllerResolver();
         });
@@ -65,7 +65,7 @@ class LaravelAnnotationServiceProvider extends ServiceProvider
     {
         return ['laravel_annotations'];
     }
-    
+
     /**
      * Console-specific booting.
      *
