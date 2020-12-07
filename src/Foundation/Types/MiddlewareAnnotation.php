@@ -6,7 +6,7 @@ use Closure;
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
+use M3assy\LaravelAnnotations\Console\ControllerResolver;
 use ReflectionClass;
 use M3assy\LaravelAnnotations\Foundation\Contracts\AnnotationType;
 

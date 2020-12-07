@@ -8,8 +8,8 @@ use Illuminate\Routing\Contracts\ControllerDispatcher;
 use Illuminate\Support\ServiceProvider;
 use M3assy\LaravelAnnotations\Console\MakeMiddlewareAnnotationCommand;
 use M3assy\LaravelAnnotations\Console\ScanNewAclCommand;
-use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
-use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Foundation\ControllerDispatcherWithAnnotationReader;
+use M3assy\LaravelAnnotations\Console\ControllerResolver;
+use M3assy\LaravelAnnotations\Foundation\ControllerDispatcherWithAnnotationReader;
 
 class LaravelAnnotationServiceProvider extends ServiceProvider
 {

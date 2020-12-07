@@ -6,7 +6,7 @@ use Doctrine\Common\Annotations\SimpleAnnotationReader;
 use Illuminate\Routing\Controller;
 use Illuminate\Pipeline\Pipeline;
 use M3assy\LaravelAnnotations\Foundation\Pipes\{ClassMiddlewareResolver, MethodMiddlewareResolver};
-use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
+use M3assy\LaravelAnnotations\Console\ControllerResolver;
 
 class LaravelAnnotation extends SimpleAnnotationReader
 {

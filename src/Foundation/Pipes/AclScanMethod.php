@@ -12,8 +12,8 @@ namespace M3assy\LaravelAnnotations\Foundation\Pipes;
 use Closure;
 use M3assy\LaravelAnnotations\Facades\Annotation;
 use M3assy\LaravelAnnotations\Foundation\AnnotationScanner;
-use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console\ControllerResolver;
-use M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Foundation\Pipes\AbstractAclScanner;
+use M3assy\LaravelAnnotations\Console\ControllerResolver;
+use M3assy\LaravelAnnotations\Foundation\Pipes\AbstractAclScanner;
 
 class AclScanMethod extends AbstractAclScanner
 {

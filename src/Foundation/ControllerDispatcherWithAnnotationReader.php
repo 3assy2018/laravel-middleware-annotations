@@ -6,7 +6,7 @@
  * Time: 7:13 PM
  */
 
-namespace M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Foundation;
+namespace M3assy\LaravelAnnotations\Foundation;
 
 
 use Illuminate\Routing\ControllerDispatcher;

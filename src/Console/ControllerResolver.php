@@ -6,7 +6,7 @@
  * Time: 9:04 PM
  */
 
-namespace M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\src\Console;
+namespace M3assy\LaravelAnnotations\Console;
 
 
 class ControllerResolver
