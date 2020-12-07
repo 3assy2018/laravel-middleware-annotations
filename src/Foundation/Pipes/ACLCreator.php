@@ -6,7 +6,7 @@
  * Time: 9:31 AM
  */
 
-namespace M3assy\LaravelAnnotations\M3assy\LaravelAnnotations\Foundation\Pipes;
+namespace M3assy\LaravelAnnotations\Foundation\Pipes;
 
 
 use Closure;
